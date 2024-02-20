@@ -1,9 +1,41 @@
 version: '3'
 
 services:
-  web:
+  appnode:
     container_name: appnode
     build: .
     ports:
-      - "5005:5000"
+      - "$PORT_LOCAL_NODE:$PORT"
+    env_file:
+      - ./.env
+    environment:
+      - PORT=$PORT
+    depends_on:
+      - bd_mysql
+  
+  bd_mysql:
+    image: mariadb:jammy
+    container_name: bd_mysql
+    environment:
+      - MARIADB_ROOT_PASSWORD=$DB_PASSWORD_ROOT
+      - MARIADB_USER=$BD_USER
+      - MARIADB_PASSWORD=$BD_PASSWORD
+      - MARIADB_DATABASE=$BD_DATABASE
+    ports:
+      - "3308:3306"
+  
+  webserver:
+    image: nginx
+    container_name: webserver
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "800:80"
+      - "443:443"
+    depends_on:
+      - appnode
+    
+  
+
       

@@ -10,6 +10,10 @@ app.use(express.json());
 
 app.use("/api", route)
 
+app.get("/", (req, res) => {
+    res.json({mensaje: "App de Node"});
+})
+
 
 app.listen(PORT, () => {
     console.log(`servidor iniciado en 127.0.0.1:${PORT}`)
