@@ -1,8 +1,9 @@
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize('bd_docker1', 'root', 'root', {
-    host: 'localhost',
-    dialect: 'mysql'
+    host: 'bd_mysql',
+    dialect: 'mysql',
+    port: 3306
 });
 
 

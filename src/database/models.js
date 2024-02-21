@@ -15,9 +15,22 @@ const User = sequelize.define("User", {
   },
 });
 
+const Categoria = sequelize.define("Categoria", {
+  // Model attributes are defined here
+  nombre: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  detalle: {
+    type: DataTypes.STRING,
+  }
+});
+
 User.sync()
+Categoria.sync()
 
 module.exports = {
     User,
+    Categoria
     
 }
