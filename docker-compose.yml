@@ -46,4 +46,8 @@ services:
     depends_on:
       - webserver
 
+volumes:
+  certbot-etc:
+  certbot-var:
+  web-root:
       
