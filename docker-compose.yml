@@ -12,6 +12,8 @@ services:
       - PORT=$PORT
     depends_on:
       - bd_mysql
+    networks:
+      - red1
   
   bd_mysql:
     image: mariadb:jammy
@@ -25,6 +27,8 @@ services:
       - "3308:3306"
     volumes:
       - ./data:/var/lib/mysql
+    networks:
+      - red1
   
   webserver:
     image: nginx:1.25.4-alpine
@@ -41,6 +45,8 @@ services:
       - certbot-var:/var/lib/letsencrypt
     depends_on:
       - appnode
+    networks:
+      - red1
   
   certbot:
     image: certbot/certbot
@@ -52,9 +58,14 @@ services:
     command: certonly --webroot --webroot-path=/var/www/html --email cchura.cpc@gmail.com --agree-tos -d dockernode.edtics.com
     depends_on:
       - webserver
+    networks:
+      - red1
 
 volumes:
   certbot-etc:
   certbot-var:
   web-root:
-      
+
+networks:
+    red1:
+      driver: bridge
