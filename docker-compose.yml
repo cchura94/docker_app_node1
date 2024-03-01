@@ -23,6 +23,8 @@ services:
       - MARIADB_DATABASE=$BD_DATABASE
     ports:
       - "3308:3306"
+    volumes:
+      - ./data:/var/lib/mysql
   
   webserver:
     image: nginx:1.25.4-alpine
